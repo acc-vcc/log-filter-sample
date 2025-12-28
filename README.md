@@ -17,6 +17,7 @@ C++ の基本的な文字列処理・ファイル入出力・CMake 構成・GitH
 - **CMake（アウトオブソースビルド）**
 - **std::filesystem による実行ファイル名取得**
 - **GitHub Actions（自動ビルド & 簡易テスト）**
+- **.gitignore による CMake 生成物の除外（build/ 配下）**
 
 ---
 
@@ -37,6 +38,8 @@ C++ の基本的な文字列処理・ファイル入出力・CMake 構成・GitH
 - `std::filesystem::path` による実行ファイル名の抽出  
 - エラー時には Usage を併記し、CLI ツールとして扱いやすい設計  
 - GitHub Actions による自動ビルドと簡易テストを実装
+- CMake のアウトオブソースビルドを前提としており、`build/` などの生成物は `.gitignore` により管理対象外としています
+
 
 ---
 
@@ -44,7 +47,7 @@ C++ の基本的な文字列処理・ファイル入出力・CMake 構成・GitH
 
 ```
 log-filter-sample/
-├─ .gitignore             # Git 管理対象外ファイル設定
+├─ .gitignore             # CMake 生成物（build/ 配下）を除外
 ├─ .github/
 │  └─ workflows/
 │     └─ build.yml        # 自動ビルド用 GitHub Actions ファイル

@@ -1,0 +1,36 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Configure CMake
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Show executable
+        run: ls -l build
+
+      - name: Run simple test (INFO)
+        run: |
+          echo "[INFO] test message" | build/logfilter --level INFO
+
+      - name: Run simple test (ERROR)
+        run: |
+          echo "[ERROR] critical failure" | build/logfilter --level ERROR
+
+      - name: Run negative test (should output nothing)
+        run: |
+          echo "[INFO] normal" | build/logfilter --level ERROR
